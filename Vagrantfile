@@ -1,11 +1,11 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-default_box = "generic/opensuse15"
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
+Vagrant.require_version ">= 2.2.10"
 Vagrant.configure("2") do |config|
   # The most common configuration options are documented and commented below.
   # For a complete reference, please see the online documentation at
@@ -13,41 +13,22 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-
-  config.vm.define "master" do |master|
-    master.vm.box = default_box
-    master.vm.hostname = "master"
-    master.vm.network 'private_network', ip: "192.168.0.200",  virtualbox__intnet: true
-    master.vm.network "forwarded_port", guest: 22, host: 2222, id: "ssh", disabled: true
-    master.vm.network "forwarded_port", guest: 22, host: 2000 # Master Node SSH
-    master.vm.network "forwarded_port", guest: 6443, host: 6443 # API Access
-    for p in 30000..30100 # expose NodePort IP's
-      master.vm.network "forwarded_port", guest: p, host: p, protocol: "tcp"
-      end
-    master.vm.provider "virtualbox" do |v|
-      v.memory = "3072"
-      v.name = "master"
-      end
-    master.vm.provision "shell", inline: <<-SHELL
-      sudo zypper refresh
-      sudo zypper --non-interactive install bzip2
-      sudo zypper --non-interactive install etcd
-      sudo zypper --non-interactive install apparmor-parser
-      curl -sfL https://get.k3s.io | sh -
-    SHELL
-  end
-
+  # Use any version shown here https://app.vagrantup.com/opensuse/boxes/Leap-15.4.x86_64
+  config.vm.box = "opensuse/Leap-15.4.x86_64"
+  config.vm.box_version = "15.4.13.7"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
   # config.vm.box_check_update = false
 
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine. In the example below,
-  # accessing "localhost:8080" will access port 80 on the guest machine.
-  # NOTE: This will enable public access to the opened port
-  # config.vm.network "forwarded_port", guest: 80, host: 8080
+ config.vm.network 'private_network', ip: "192.168.0.200",  virtualbox__intnet: true
+    config.vm.network "forwarded_port", guest: 22, host: 2222, id: "ssh", disabled: true
+    config.vm.network "forwarded_port", guest: 22, host: 2000 # config Node SSH
+    config.vm.network "forwarded_port", guest: 6443, host: 6443 # API Access
+    for p in 30000..30100 # expose NodePort IP's
+      config.vm.network "forwarded_port", guest: p, host: p, protocol: "tcp"
+      end
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine and only allow access
@@ -73,13 +54,17 @@ Vagrant.configure("2") do |config|
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
-  # config.vm.provider "virtualbox" do |vb|
+  config.vm.provider "virtualbox" do |vb|
   #   # Display the VirtualBox GUI when booting the machine
   #   vb.gui = true
   #
-  #   # Customize the amount of memory on the VM:
-  #   vb.memory = "1024"
-  # end
+  #   # Customize the amount of memory on the VM:clear
+
+    vb.memory = "4096"
+    vb.cpus = 2
+    #vb.memory = "2048"
+    vb.name = "k3s"
+  end
   #
   # View the documentation for the provider you are using for more
   # information on available options.
@@ -87,8 +72,12 @@ Vagrant.configure("2") do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  # config.vm.provision "shell", inline: <<-SHELL
-  #   apt-get update
-  #   apt-get install -y apache2
-  # SHELL
+  config.vm.provision "shell", inline: <<-SHELL
+     sudo zypper --non-interactive install apparmor-parser
+  SHELL
+
+  args = []
+      config.vm.provision "k3s shell script", type: "shell",
+          path: "k3s.sh",
+          args: args
 end
