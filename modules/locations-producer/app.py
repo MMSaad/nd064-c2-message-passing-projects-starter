@@ -15,7 +15,7 @@ import location_pb2
 import location_pb2_grpc
 
 TOPIC_NAME = 'locations'
-KAFKA_SERVER = 'localhost:9092'
+KAFKA_SERVER = '10.43.136.92:9092'
 
 
 

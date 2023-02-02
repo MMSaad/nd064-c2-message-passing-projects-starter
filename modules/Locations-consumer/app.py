@@ -4,8 +4,8 @@ from services import LocationService
 
 
 TOPIC_NAME = 'locations'
-
-consumer = KafkaConsumer(TOPIC_NAME)
+KAFKA_SERVER = '10.43.136.92:9092'
+consumer = KafkaConsumer(TOPIC_NAME, bootstrap_servers=KAFKA_SERVER)
 for message in consumer:
     print (message)
     print(message.value)
