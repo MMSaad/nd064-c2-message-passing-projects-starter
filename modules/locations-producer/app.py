@@ -18,23 +18,26 @@ TOPIC_NAME = 'locations'
 KAFKA_SERVER = '10.43.136.92:9092'
 
 
-
 class ItemServicer(location_pb2_grpc.LocationServiceServicer):
 
     def Create(self, request, context):
-
-        request_value = {
-            "id": request.id,
-            "person_id": request.person_id,
-            "longitude": request.longitude,
-            "latitude": request.latitude
-        }
-        message = json.dumps(request_value)
-        print(message)
-        producer = KafkaProducer(bootstrap_servers=KAFKA_SERVER)
-        producer.send(TOPIC_NAME, json.dumps(request_value, default=json_util.default).encode('utf-8'))
-        producer.flush()
-        return location_pb2.LocationMessage(**request_value)
+        try:
+            request_value = {
+                "id": request.id,
+                "person_id": request.person_id,
+                "longitude": request.longitude,
+                "latitude": request.latitude,
+                "creation_time": request.creation_time
+            }
+            message = json.dumps(request_value)
+            print(message)
+            producer = KafkaProducer(bootstrap_servers=KAFKA_SERVER)
+            producer.send(TOPIC_NAME, json.dumps(request_value, default=json_util.default).encode('utf-8'))
+            producer.flush()
+            return location_pb2.LocationMessage(**request_value)
+        except Exception:
+            print("Some error happened")
+            pass
 
 
 # Initialize gRPC server
