@@ -6,12 +6,12 @@ from geoalchemy2.shape import to_shape
 from shapely.geometry.point import Point
 from sqlalchemy import BigInteger, Column,  DateTime,  Integer
 from sqlalchemy.ext.hybrid import hybrid_property
-from sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
+from sqlalchemy.ext.declarative import declarative_base
 
 
-class Location(db.Model):
+Base = declarative_base()
+
+class Location(Base):
     __tablename__ = "location"
 
     id = Column(BigInteger, primary_key=True)
