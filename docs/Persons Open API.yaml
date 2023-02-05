@@ -1,0 +1,79 @@
+---
+swagger: "2.0"
+info:
+  version: 0.1.0
+  title: UdaConnect API
+basePath: /
+tags:
+- name: UdaConnect
+  description: Connections via geolocation.
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  /api/persons:
+    get:
+      tags:
+      - UdaConnect
+      operationId: get_persons_resource
+      parameters: []
+      responses:
+        "200":
+          description: Success
+    post:
+      tags:
+      - UdaConnect
+      operationId: post_persons_resource
+      parameters: []
+      responses:
+        "200":
+          description: Success
+  /api/persons/{person_id}:
+    get:
+      tags:
+      - UdaConnect
+      operationId: get_person_resource
+      parameters:
+      - name: person_id
+        in: path
+        description: Unique ID for a given Person
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Success
+  /api/persons/{person_id}/connection:
+    get:
+      tags:
+      - UdaConnect
+      operationId: get_connection_data_resource
+      parameters:
+      - name: distance
+        in: query
+        description: Proximity to a given user in meters
+        required: false
+        type: string
+      - name: end_date
+        in: query
+        description: Upper bound of date range
+        required: false
+        type: string
+      - name: start_date
+        in: query
+        description: Lower bound of date range
+        required: false
+        type: string
+      - name: person_id
+        in: path
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Success
+definitions: {}
+responses:
+  ParseError:
+    description: When a mask can't be parsed
+  MaskError:
+    description: When any error occurs on mask
