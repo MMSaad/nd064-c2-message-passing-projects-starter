@@ -6,7 +6,7 @@ from geoalchemy2.shape import to_shape
 from shapely.geometry.point import Point
 from sqlalchemy import BigInteger, Column,  DateTime,  Integer
 from sqlalchemy.ext.hybrid import hybrid_property
-from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
