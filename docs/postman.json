@@ -1,0 +1,253 @@
+{
+	"info": {
+		"_postman_id": "d83c17c3-6fc5-404b-90e8-c640025058da",
+		"name": "UdaConnect-Restful",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12387947"
+	},
+	"item": [
+		{
+			"name": "Persons",
+			"item": [
+				{
+					"name": "Persons List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "en-US,en;q=0.9,ar;q=0.8,et;q=0.7,fr;q=0.6"
+							},
+							{
+								"key": "Connection",
+								"value": "keep-alive"
+							},
+							{
+								"key": "DNT",
+								"value": "1"
+							},
+							{
+								"key": "Origin",
+								"value": "http://localhost:30000"
+							},
+							{
+								"key": "Referer",
+								"value": "http://localhost:30000/"
+							},
+							{
+								"key": "Sec-Fetch-Dest",
+								"value": "empty"
+							},
+							{
+								"key": "Sec-Fetch-Mode",
+								"value": "cors"
+							},
+							{
+								"key": "Sec-Fetch-Site",
+								"value": "same-site"
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Not_A Brand\";v=\"99\", \"Google Chrome\";v=\"109\", \"Chromium\";v=\"109\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							}
+						],
+						"url": {
+							"raw": "http://localhost:30003/api/persons",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30003",
+							"path": [
+								"api",
+								"persons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Person Connections",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "en-US,en;q=0.9,ar;q=0.8,et;q=0.7,fr;q=0.6"
+							},
+							{
+								"key": "Connection",
+								"value": "keep-alive"
+							},
+							{
+								"key": "DNT",
+								"value": "1"
+							},
+							{
+								"key": "Origin",
+								"value": "http://localhost:30000"
+							},
+							{
+								"key": "Referer",
+								"value": "http://localhost:30000/"
+							},
+							{
+								"key": "Sec-Fetch-Dest",
+								"value": "empty"
+							},
+							{
+								"key": "Sec-Fetch-Mode",
+								"value": "cors"
+							},
+							{
+								"key": "Sec-Fetch-Site",
+								"value": "same-site"
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Not_A Brand\";v=\"99\", \"Google Chrome\";v=\"109\", \"Chromium\";v=\"109\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							}
+						],
+						"url": {
+							"raw": "http://localhost:30003/api/persons/5/connection?start_date=2020-01-01&end_date=2020-12-30&distance=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30003",
+							"path": [
+								"api",
+								"persons",
+								"5",
+								"connection"
+							],
+							"query": [
+								{
+									"key": "start_date",
+									"value": "2020-01-01"
+								},
+								{
+									"key": "end_date",
+									"value": "2020-12-30"
+								},
+								{
+									"key": "distance",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Person",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":50,\r\n    \"first_name\":\"Mustafa\",\r\n    \"last_name\":\"Saad\",\r\n    \"company_name\":\"Gama LTD\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:30003/api/persons",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30003",
+							"path": [
+								"api",
+								"persons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get person by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:30003/api/persons/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30003",
+							"path": [
+								"api",
+								"persons",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Locations",
+			"item": [
+				{
+					"name": "Get Location By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:30002/api/locations/30",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30002",
+							"path": [
+								"api",
+								"locations",
+								"30"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -1,9 +1,3 @@
-# Configure Kafka Connection
-
-# Create GRPC Contracts and endpoint
-
-# Save Create Location to Kafka Topic
-
 from kafka import KafkaProducer
 import time
 import json
@@ -22,6 +16,7 @@ class ItemServicer(location_pb2_grpc.LocationServiceServicer):
 
     def Create(self, request, context):
         try:
+            print(str(request))
             request_value = {
                 "id": request.id,
                 "person_id": request.person_id,
@@ -35,9 +30,8 @@ class ItemServicer(location_pb2_grpc.LocationServiceServicer):
             producer.send(TOPIC_NAME, json.dumps(request_value, default=json_util.default).encode('utf-8'))
             producer.flush()
             return location_pb2.LocationMessage(**request_value)
-        except Exception:
-            print("Some error happened")
-            pass
+        except Exception as e:
+            print("Some error happened " + str(e))
 
 
 # Initialize gRPC server
