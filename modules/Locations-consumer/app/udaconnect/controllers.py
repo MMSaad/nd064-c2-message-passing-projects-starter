@@ -4,10 +4,7 @@ from flask_restx import Namespace
 
 DATE_FORMAT = "%Y-%m-%d"
 
-api = Namespace("UdaConnect", description="Connections via geolocation.")  # noqa
-
-
-# TODO: This needs better exception handling
+api = Namespace("UdaConnect Locations", description="Connections via geolocation.")  # noqa
 
 def saveLocation(location) -> Location:
     result = LocationService.create(location)
